@@ -11,32 +11,50 @@ const Header = () => {
   };
 
   return (
-    <header className='bg-slate-950 h-[6rem] flex justify-between items-center px-6 md:px-12 shadow-lg relative'>
+    <header className='bg-slate-950 fixed z-20 w-full h-[6rem] flex justify-between items-center px-6 md:px-12 shadow-lg'>
       <Logo />
 
-      {/* Hamburger Icon */}
-      <div className='md:hidden cursor-pointer' onClick={toggleMenu}>
-        <div className='w-6 h-1 bg-white mb-1'></div>
-        <div className='w-6 h-1 bg-white mb-1'></div>
-        <div className='w-6 h-1 bg-white'></div>
+      {/* Hamburger menu for mobile and tablets */}
+      <div className='md:hidden cursor-pointer z-50' onClick={toggleMenu}>
+        <div className={`w-6 h-1 bg-white mb-1 transition-transform duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></div>
+        <div className={`w-4 h-1 bg-white mb-1 transition-opacity duration-300 ${isMenuOpen ? 'opacity-0' : ''}`}></div>
+        <div className={`w-6 h-1 bg-white transition-transform duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></div>
       </div>
 
-      {/* Navigation */}
-      <nav className={`fixed md:static top-[6rem] left-0 w-full md:w-auto bg-slate-800 md:bg-transparent transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-        <ul className='flex flex-col md:flex-row justify-center gap-8 p-4 md:p-0 text-xl text-white'>
-          <li onClick={() => setIsMenuOpen(false)}>
+      {/* Desktop menu */}
+      <nav className='hidden md:block z-20'>
+        <ul className='flex gap-8 text-xl text-white'>
+          <li>
             <Link href="/">Home</Link>
           </li>
-          <li onClick={() => setIsMenuOpen(false)}>
+          <li>
             <Link href="/instructions">Instructions</Link>
           </li>
-          <li onClick={() => setIsMenuOpen(false)}>
+          <li>
             <Link href="/about">About</Link>
           </li>
         </ul>
       </nav>
+
+      {/* Sliding Full-Screen Mobile/Tablet Menu */}
+      <div className={`fixed top-0 right-0 w-full h-screen bg-slate-950 flex flex-col justify-center items-center text-white text-2xl space-y-8 transition-transform duration-300 ease-in-out z-40 ${
+          isMenuOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}>
+
+        <ul className='text-center text-3xl font-bold flex flex-col justify-center gap-8'>
+          <li onClick={toggleMenu}>
+            <Link href="/" className='hover:text-emerald-400'>Home</Link>
+          </li>
+          <li onClick={toggleMenu}>
+            <Link href="/instructions" className='hover:text-emerald-400'>Instructions</Link>
+          </li>
+          <li onClick={toggleMenu}>
+            <Link href="/about" className='hover:text-emerald-400'>About</Link>
+          </li>
+        </ul>
+      </div>
     </header>
   );
-}
+};
 
 export default Header;

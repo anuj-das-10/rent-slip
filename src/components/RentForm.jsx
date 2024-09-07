@@ -1,11 +1,10 @@
 "use client";
 import { useState } from 'react';
-import Logo from './Logo';
 import generateBillTemplate from '@/utils/pdf.generator';
 
 export default function RentForm() {
-  const [landlordSign, setLandLordSign] = useState('');   // Keya Namasudra
-  const [rentPayerName, setRentPayerName] = useState('');  // Manjusree Das / Anuj Das
+  const [landlordSign, setLandLordSign] = useState('');   
+  const [rentPayerName, setRentPayerName] = useState('');  
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [costPerUnit, setCostPerUnit] = useState(9.5);
   const [mainMeterReading, setMainMeterReading] = useState('');
@@ -40,45 +39,37 @@ export default function RentForm() {
 
 
   return (
-    <div className="min-h-screen rounded-lg text-white flex items-center justify-center w-[40rem]">
-      <div className="bg-[#28293D] shadow-lg rounded-lg p-8 w-full">
+    <div className="min-h-screen px-0 md:px-4 pt-12 rounded-lg text-white flex justify-center md:w-[40rem] z-10">
+      
         {viewSummary ? (
-          <>
+          <div className='bg-[#10101a] shadow-lg shadow-slate-950 rounded-lg w-full h-fit p-8'>
             {/* Summary */}
-            <h3 className="text-3xl text-center font-semibold text-white">Invoice Summary!</h3>
-            <div className="mt-6 p-4 bg-[#28293D] rounded-lg border border-[#4F9DDE]">
-            <p className="text-[#FFD166] mt-2">Tenant :  {rentPayerName}</p>
-            <p className="text-[#FFD166] mt-1">Landlord :  {landlordSign}</p>
-            <p className="text-[#FFD166] mt-1">Rent for the Month :  {['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][currentMonth]}</p>
-            <p className="text-[#FFD166] mt-1">Energy Consumped :  {energyConsumption.toFixed(2)} kWh</p>
-            <p className="text-[#FFD166] mt-1">Electricity Cost :  Rs. {electricityCost}</p>
-            <p className="text-[#FFD166] mt-1">Water Charges :  Rs. {waterCharges}</p>
-            <p className="text-[#FFD166] mt-1">Home Rent :  Rs. {homeRent}</p>
-            <p className="text-[#FFD166] mt-1">Total Rent to Pay :  Rs. {totalRentToPay}</p>
-
-              <button
-                type="button"
-                onClick={handleDownloadPDF}
-                className="mt-4 w-full bg-[#059200] text-white py-3 rounded-lg hover:bg-[#236e11] transition-all duration-200 font-bold"
-              >
-                Download Invoice
-              </button>
-
-
-              <button
-                type="button"
-                onClick={() => setViewSummary(false)}
-                className="mt-4 w-full bg-[#ff2600] text-white py-3 rounded-lg hover:bg-[#A389F4] transition-all duration-200 font-bold"
-              >
-                Go Back
-              </button>
-
-              
+            <h3 className="text-3xl my-8 text-center font-semibold text-white">Invoice Summary!</h3>
+            <div className="mt-6 text-lg md:text-xl p-4 rounded-lg border border-[#4F9DDE]">
+            <p className="text-[#FFD166] mt-2">Tenant :  <span className='text-red-500'>{rentPayerName}</span></p>
+            <p className="text-[#FFD166] mt-1">Landlord :  <span className='text-red-500'>{landlordSign}</span></p>
+            <p className="text-[#FFD166] mt-1">Rent for the Month :  <span className='text-red-500'>{['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][currentMonth]}</span></p>
+            <p className="text-[#FFD166] mt-1">Energy Consumped :  <span className='text-red-500'>{energyConsumption.toFixed(2)} kWh</span></p>
+            <p className="text-[#FFD166] mt-1">Electricity Cost :  <span className='text-red-500'>Rs. {electricityCost}</span></p>
+            <p className="text-[#FFD166] mt-1">Water Charges :  <span className='text-red-500'>Rs. {waterCharges}</span></p>
+            <p className="text-[#FFD166] mt-1">Home Rent :  <span className='text-red-500'>Rs. {homeRent}</span></p>
+            <p className="text-[#FFD166] mt-1">Total Rent to Pay :  <span className='text-red-500'>Rs. {totalRentToPay}</span></p>              
             </div>
-          </>
+            <button onClick={handleDownloadPDF}
+            className="mt-8 w-full bg-[#066403] text-white py-3 rounded-lg hover:bg-green-800 transition-all duration-200 font-bold">
+                Download Invoice
+            </button>
+
+
+            <button onClick={() => setViewSummary(false)}
+            className="mt-4 w-full bg-[#bd280e] text-white py-3 rounded-lg hover:bg-red-600 transition-all duration-200 font-bold">
+                Go Back
+            </button>
+
+          </div>
         ) : (
-          <>
-            <h2 className="text-3xl font-semibold text-white mb-6">Rent and Utility Calculation</h2>
+          <div className="bg-[#10101a] rounded-lg w-full p-8 shadow-lg shadow-slate-950">
+            <h2 className="text-3xl font-semibold text-white mb-4">Rent and Utility Calculation</h2>
             <form className="space-y-6">
               {/* Landlord Signature */}
               <div className="flex flex-col">
@@ -175,25 +166,23 @@ export default function RentForm() {
               <div className="flex flex-col">
                 <label className="text-[#B3B3B3]">Home Stay Rent (Rs.):</label>
                 <input required
-                  className="p-3 border border-[#4F9DDE] rounded bg-[#1E1E2C] text-white focus:outline-none focus:ring-2 focus:ring-[#A389F4]"
+                  className="p-3 border mb-8 border-[#4F9DDE] rounded bg-[#1E1E2C] text-white focus:outline-none focus:ring-2 focus:ring-[#A389F4]"
                   value={homeRent}
                   onChange={e => setHomeRent(e.target.value)}
                   type="number"
                 />
               </div>
 
-              <button
-                type="button"
-                onClick={() => setViewSummary(true)}
-                className="w-full bg-[#FFD166] text-[#1E1E2C] py-3 rounded-lg hover:bg-[#ffcc00] transition-all duration-200 font-bold text-xl"
-              >
+              <button onClick={() => setViewSummary(true)}
+              className="w-full bg-[#FFD166] text-[#1E1E2C] py-3 rounded-lg hover:bg-[#ffcc00] transition-all duration-200 font-bold text-xl">
                 Get Summary
               </button>
             </form>
-          </>)}
+          </div>
+        )}
 
 
       </div>
-    </div>
+
   );
 }

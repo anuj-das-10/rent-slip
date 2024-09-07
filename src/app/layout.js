@@ -7,13 +7,16 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "RentSlip",
-  description: "Get your monthly home rent invoice for ease.",
+  description: "Get your monthly home rent invoice with ease.",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <head>
+        <link rel="icon" href="/rentSlip.webp" />
+      </head>
+      <body>
         <Header />
         {children}
         <Footer />
