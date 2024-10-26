@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="icon" href="/rentSlip.webp" />
       </head>
-      <body>
+      <body className="bg-[#111129]">
         <Header />
         {children}
         <Footer />

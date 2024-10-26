@@ -11,7 +11,7 @@ const Header = () => {
   };
 
   return (
-    <header className='bg-slate-950 fixed z-20 w-full h-[6rem] flex justify-between items-center px-6 md:px-12 shadow-lg'>
+    <header className='bg-slate-950 fixed z-20 w-full h-[5rem] flex justify-between items-center px-6 lg:px-[12.5rem] shadow-lg'>
       <Logo />
 
       {/* Hamburger menu for mobile and tablets */}

@@ -7,8 +7,6 @@ const getMonthName = (monthNumber) => {
 }
 
 
-
-
 const generateBillTemplate = (
   landlord,
   rentPayer,

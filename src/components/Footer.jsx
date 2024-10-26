@@ -32,7 +32,7 @@ const Footer = () => {
       </div>
 
       {/* Footer Bottom */}
-      <div className="text-center mt-6 text-sm md:text-lg border-t border-gray-700 pt-4 font-semibold">
+      <div className="text-center mt-6 text-sm md:text-lg border-t border-gray-700 pt-4">
         <p>Copyright &copy; {new Date().getFullYear()} RentSlip. All rights reserved.</p>
       </div>
     </footer>
